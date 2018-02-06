@@ -1,0 +1,21 @@
+{{#each errors}}
+  <div class='alert alert-danger'>{{text}}</div>
+{{else}}
+
+{{/each}}
+
+<div class="card card-body">
+  <h3>Editar cachorro</h3>
+  <form action='/cachorros/{{cachorro.id}}?_method=PUT' method='post'>
+    <input type='hidden' name='_method' value='PUT'>
+    <div class="form-group">
+      <label for="title">Título</label>
+      <input type="text" class='form-control' name='title' value='{{cachorro.title}}' required>
+    </div>
+    <div class="form-group">
+      <label for="desc">Descrição</label>
+      <textarea class='form-control mb-3' name='desc' required>{{cachorro.desc}}</textarea>
+      <button type="submit" class="btn btn-primary">Enviar</button>
+    </div>
+  </form>
+</div>

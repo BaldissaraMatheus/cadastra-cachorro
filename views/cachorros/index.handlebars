@@ -1,0 +1,14 @@
+{{#each cachorros}}
+  <div class='card card-body mb-2'>
+    <h4>{{title}}</h4>
+    <p>{{desc}}</p>
+    <a class='btn btn-dark mb-2' href='cachorros/edit/{{id}}'>Editar</a>
+    <form method='post' action='/cachorros/{{id}}?_method=DELETE'>
+      <input type='hidden' name='_method' value='DELETE'>
+      <input type='submit' class='btn btn-danger btn-block' value='Delete'>
+    </form>
+  </div>
+{{else}}
+<p>Sem cachorros no momento</p>
+
+{{/each}}
