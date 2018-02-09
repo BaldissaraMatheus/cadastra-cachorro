@@ -1,13 +1,14 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const router = express.Router();
+const {ensureAuthenticated} = require('../helpers/auth');
 
 // Load Cachorro Model
 require('../models/Cachorro');
 const Cachorro = mongoose.model('cachorros');
 
 // Index page
-router.get('/', (req, res) => {
+router.get('/', ensureAuthenticated, (req, res) => {
   Cachorro.find({})
     .sort({date:'desc'})
     .then(cachorros => {
@@ -17,13 +18,13 @@ router.get('/', (req, res) => {
   });
 });
 
-// Adiciona cachorro
-router.get('/add', (req, res) => {
+// Add cachorro
+router.get('/add', ensureAuthenticated, (req, res) => {
   res.render('cachorros/add');
 });
 
 // Carrega página de editar cachorro
-router.get('/edit/:id', (req, res) => {
+router.get('/edit/:id', ensureAuthenticated, (req, res) => {
   Cachorro.findOne({
     _id: req.params.id
   })
@@ -34,7 +35,7 @@ router.get('/edit/:id', (req, res) => {
   });
 });
 
-router.post('/', (req, res) => {
+router.post('/', ensureAuthenticated, (req, res) => {
   console.log(req.body);
   let errors = [];
 
@@ -65,8 +66,8 @@ router.post('/', (req, res) => {
   }
 });
 
-// Edita Cachorro
-router.put('/:id', (req, res) => {
+// Edit cachorro
+router.put('/:id', ensureAuthenticated, (req, res) => {
   Cachorro.findOne({
     _id: req.params.id
   })
@@ -82,7 +83,7 @@ router.put('/:id', (req, res) => {
 });
 
 // Deleta cachorro
-router.delete('/:id', (req, res) => {
+router.delete('/:id', ensureAuthenticated, (req, res) => {
   Cachorro.remove({_id: req.params.id})
     .then(() => {
       req.flash('success_msg', 'Cachorro removido');
