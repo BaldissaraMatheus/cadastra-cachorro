@@ -17,20 +17,23 @@
       
       <ul class="navbar-nav ml-auto">
         {{#if user}}
-        <li class="nav-item dropdown">
-          <a href="#" class="nav-link dropdown-toggle" data-toggle='dropdown' id='navbarDropdownManuLink'>Cachorros</a>
-          <div class="dropdown-menu">
-              <a href="/cachorros" class="dropdown-item">Mostrar cachorros</a>
-              <a href="/cachorros/add" class="dropdown-item"> Adicionar Cachorros</a>
-          </div>
-        </li>
+          <li class="nav-item dropdown">
+            <a href="#" class="nav-link dropdown-toggle" data-toggle='dropdown' id='navbarDropdownManuLink'>Cachorros</a>
+            <div class="dropdown-menu">
+                <a href="/cachorros" class="dropdown-item">Mostrar cachorros</a>
+                <a href="/cachorros/add" class="dropdown-item"> Adicionar Cachorros</a>
+            </div>
+          </li>
+          <li class='nav-item'>
+            <a href='/users/logout' class='nav-link'>Logout</a>
+          </li>
         {{else}}
-                <li class='nav-item'>
-          <a href='/users/login' class='nav-link'>Login</a>
-        </li>
-        <li class='nav-item'>
-          <a href='/users/register' class='nav-link'>Cadastro</a>
-        </li>
+          <li class='nav-item'>
+            <a href='/users/login' class='nav-link'>Login</a>
+          </li>
+          <li class='nav-item'>
+            <a href='/users/register' class='nav-link'>Cadastro</a>
+          </li>
         {{/if}}
       </ul>
     </div>

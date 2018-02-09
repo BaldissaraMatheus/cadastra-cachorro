@@ -75,4 +75,11 @@ router.post('/register', (req, res) => {
   }
 });
 
+// Logout user
+router.get('/logout', (req, res) => {
+  req.logout();
+  req.flash('success_msg', 'Você foi desconectado');
+  res.redirect('/users/login');
+});
+
 module.exports = router;
