@@ -9,7 +9,7 @@ const Cachorro = mongoose.model('cachorros');
 
 // Index page
 router.get('/', ensureAuthenticated, (req, res) => {
-  Cachorro.find({})
+  Cachorro.find({user: req.user.id})
     .sort({date:'desc'})
     .then(cachorros => {
       res.render('cachorros/index', {
@@ -23,15 +23,20 @@ router.get('/add', ensureAuthenticated, (req, res) => {
   res.render('cachorros/add');
 });
 
-// Carrega página de editar cachorro
+// Edit cachorro form
 router.get('/edit/:id', ensureAuthenticated, (req, res) => {
   Cachorro.findOne({
     _id: req.params.id
   })
   .then(cachorro => {
-    res.render('cachorros/edit', {
-      cachorro:cachorro
-    });
+    if (cachorro.user != req.user.id) {
+      req.flash('error_msg', 'Acesso não autorizado');
+      res.redirect('/cachorros');
+    } else {
+      res.render('cachorros/edit', {
+        cachorro:cachorro
+      });
+    }    
   });
 });
 
@@ -56,7 +61,8 @@ router.post('/', ensureAuthenticated, (req, res) => {
   } else {
     const newUser = {
       title: req.body.title,
-      desc: req.body.desc
+      desc: req.body.desc,
+      user: req.user.id
     };
     new Cachorro(newUser)
       .save()
@@ -82,7 +88,7 @@ router.put('/:id', ensureAuthenticated, (req, res) => {
   });
 });
 
-// Deleta cachorro
+// Delete cachorro
 router.delete('/:id', ensureAuthenticated, (req, res) => {
   Cachorro.remove({_id: req.params.id})
     .then(() => {
