@@ -9,7 +9,10 @@ const session = require('express-session');
 const passport = require('passport');
 
 const app = express();
-mongoose.connect('mongodb://localhost/fumaca_db', {})
+
+const db = require('./config/database')
+
+mongoose.connect(db.mongoURI, {})
   .then(() => console.log('MongoDB connected'))
   .catch(err => console.log(err));
 
@@ -63,7 +66,9 @@ app.get('/', (req, res) => {
 });
 
 app.get('/about', (req, res) => {
-  res.render('about');
+  res.render('about', {
+    title: 'Sobre'
+  });
 });
 
 // Use routes
@@ -71,7 +76,7 @@ app.use('/cachorros', cachorros);
 app.use('/users', users);
 
 // Load server
-const port = 5001;
+const port = process.env.PORT || 5000;
 
 app.listen(port, () => {
   console.log(`Server started on port ${port}`);

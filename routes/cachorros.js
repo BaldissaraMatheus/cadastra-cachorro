@@ -13,6 +13,7 @@ router.get('/', ensureAuthenticated, (req, res) => {
     .sort({date:'desc'})
     .then(cachorros => {
       res.render('cachorros/index', {
+        title: 'Cachorros',
         cachorros:cachorros
       });
   });
@@ -20,7 +21,9 @@ router.get('/', ensureAuthenticated, (req, res) => {
 
 // Add cachorro
 router.get('/add', ensureAuthenticated, (req, res) => {
-  res.render('cachorros/add');
+  res.render('cachorros/add', {
+    title: 'Adicionar cachorro'
+  });
 });
 
 // Edit cachorro form
@@ -34,6 +37,7 @@ router.get('/edit/:id', ensureAuthenticated, (req, res) => {
       res.redirect('/cachorros');
     } else {
       res.render('cachorros/edit', {
+        title: 'Editar cachorro',
         cachorro:cachorro
       });
     }    

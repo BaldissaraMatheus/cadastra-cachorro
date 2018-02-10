@@ -6,12 +6,16 @@ const passport = require('passport');
 
 // User register
 router.get('/register', (req, res) => {
-  res.render('users/register');
+  res.render('users/register', {
+    title: 'Cadastrar usuário'
+  });
 });
 
 // User login
 router.get('/login', (req, res) => {
-  res.render('users/login');
+  res.render('users/login', {
+    title: 'Fazer login'
+  });
 });
 
 //Login form post
